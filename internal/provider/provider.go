@@ -177,10 +177,14 @@ func (p *TrendMicroProvider) Functions(ctx context.Context) []func() function.Fu
 	}
 }
 
-func New(version string) func() provider.Provider {
+func New(version string) provider.Provider {
+	return &TrendMicroProvider{
+		version: version,
+	}
+}
+
+func NewFactory(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &TrendMicroProvider{
-			version: version,
-		}
+		return New(version)
 	}
 }
